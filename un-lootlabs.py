@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     urlh = re.findall(r'https://[^\s"\']+', tc)
 
-    fu = [clean_url(url.rstrip("\\")) for url in urlh if any(keyword in url for keyword in ["loot", "link", "dest"])]
+    fu = [clean_url(url.rstrip("\\")) for url in urlh if any(keyword in url for keyword in ["loot", "link", "dest", "links", "s?"])]
 
     unique = list(set(fu))
 
