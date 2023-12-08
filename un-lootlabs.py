@@ -1,11 +1,13 @@
 import requests
 import re
+import time
 
 def clean_url(url):
     cleaned = re.sub(r'<.*|&quot;.*', '', url)
     return cleaned
 
-def epl(url):
+def epl(url, delay):
+    time.sleep(delay)
     try:
         res = requests.get(url)
 
@@ -19,14 +21,20 @@ def epl(url):
             else:
                 print('not supported link found')
 
+        elif res.status_code == 429:
+            print("too many requests")
         else:
             print(f'error: {res.status_code}')
+
 
     except Exception as e:
         print(f'error: {e}')
 
 if __name__ == "__main__":
     inputkjj = input("google drive: ")
+    inputkjj2 = input("delay seconds: ")
+
+    delay = int(inputkjj2)
 
     resp = requests.get(inputkjj)
     tc = resp.text
@@ -38,4 +46,4 @@ if __name__ == "__main__":
     unique = list(set(fu))
 
     for url in unique:
-        epl(url)
+        epl(url, delay)
